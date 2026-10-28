@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+# This build pack is always enabled
+echo "typst"
+
+exit 0

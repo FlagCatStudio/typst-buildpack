@@ -1,0 +1,11 @@
+api = "0.8"
+WithWindowsBuild = false
+WithLinuxBuild = false
+
+[buildpack]
+  id = "typst-buildpack"
+  version = "0.1.0"
+
+[[targets]]
+  os = "linux"
+  arch = "amd64"

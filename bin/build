@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+echo "---> typst buildpack"
+
+layers_dir="$1"
+env_dir="$2/env"
+plan_path="$3"
+typst_layer="${layers_dir}/typst"
+typst_config="${typst_layer}/typst.toml"
+typst_binary="${typst_layer}/bin/typst"
+
+typst_version="0.15.1"
+typst_url="https://github.com/typst/typst/releases/download"
+typst_url="${typst_url}/v${typst_version}/typst-x86_64-unknown-linux-musl.tar.xz"
+
+mkdir -p "${typst_layer}/bin"
+
+if [[ -x $typst_binary ]]; then
+    cached_version=$($typst_binary --version)
+else
+    cached_version="not-cached"
+fi
+
+if [[ $cached_version == "${typst_version}" ]]; then
+    echo "-----> Reusing typst"
+else
+    echo "-----> Downloading typst ${typst_version}"
+    wget "${typst_url}" -O- \
+        | tar xJ -C "${typst_layer}/bin" --strip-components=1 \
+              typst-x86_64-unknown-linux-musl/typst
+fi
+
+cat > "${typst_cfg}" << EOF
+[types]
+  cache = true
+  build = true
+  launch = true
+[metadata]
+  typst_version = "${typst_version}"
+EOF
+
+exit 0
