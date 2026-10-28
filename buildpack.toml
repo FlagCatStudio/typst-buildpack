@@ -3,7 +3,7 @@ WithWindowsBuild = false
 WithLinuxBuild = false
 
 [buildpack]
-  id = "typst-buildpack"
+  id = "flagcatstudio/typst-buildpack"
   version = "0.1.0"
 
 [[targets]]
