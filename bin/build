@@ -32,10 +32,10 @@ else
               typst-x86_64-unknown-linux-musl/typst
 fi
 
-cat > "${typst_cfg}" << EOF
+cat > "${typst_config}" << EOF
 [types]
   cache = true
-  build = true
+  build = false
   launch = true
 [metadata]
   typst_version = "${typst_version}"
